@@ -19,9 +19,23 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract zip to root
+      - name: Extract zip contents to root
         run: |
-          unzip -o mcpanelv1.zip
+          mkdir temp_extract
+
+          unzip -o mcpanelv1.zip -d temp_extract
+
+          shopt -s dotglob
+
+          inner=$(find temp_extract -mindepth 1 -maxdepth 1 -type d | head -n 1)
+
+          if [ -n "$inner" ]; then
+            mv "$inner"/* .
+          else
+            mv temp_extract/* .
+          fi
+
+          rm -rf temp_extract
 
       - name: Delete zip
         run: |
@@ -33,6 +47,6 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add .
-          git commit -m "Extract mcpanelv1.zip" || echo "No changes"
+          git commit -m "Extract mcpanelv1.zip into root" || echo "No changes"
 
           git push
