@@ -44,15 +44,18 @@ app.use((req, res, next) => {
     next();
 });
 // Configuration
-const port = process.env.PORT || 3000;
+// We are hardcoding 3000 to test the moderator's theory
+const port = 3000; 
 const DATA_DIR = __dirname;
 const DB_PATH = path.join(DATA_DIR, 'database.db');
 const SERVERS_DIR = path.join(DATA_DIR, 'servers');
+
 // Ensure directories exist
 if (!fs.existsSync(SERVERS_DIR)) {
     fs.mkdirSync(SERVERS_DIR, { recursive: true });
     console.log('Created servers directory:', SERVERS_DIR);
 }
+
 // Global state
 global.serverProcesses = {};
 const serverStartTimes = {};
