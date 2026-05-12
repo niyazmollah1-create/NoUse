@@ -44,7 +44,6 @@ app.use((req, res, next) => {
     next();
 });
 // Configuration
-// We are hardcoding 3000 to test the moderator's theory
 const port = 3000; 
 const DATA_DIR = __dirname;
 const DB_PATH = path.join(DATA_DIR, 'database.db');
