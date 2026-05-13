@@ -43,26 +43,16 @@ app.use((req, res, next) => {
     res.locals.messages = req.flash(); // <-- THIS FIXES IT
     next();
 });
-// Configuration
-// Forced to 3000 as the "arbitrary port" for the moderator's test
-const port = 9000; 
+//Configuration
+const port = process.env.PORT || 3000;
 const DATA_DIR = __dirname;
-
-// Paths for your specific setup
-const DB_PATH = path.join(DATA_DIR, 'init-database.js'); 
+const DB_PATH = path.join(DATA_DIR, 'database.db');
 const SERVERS_DIR = path.join(DATA_DIR, 'servers');
-
 // Ensure directories exist
 if (!fs.existsSync(SERVERS_DIR)) {
     fs.mkdirSync(SERVERS_DIR, { recursive: true });
     console.log('Created servers directory:', SERVERS_DIR);
 }
-
-// Ensure your app listens to the bind address 0.0.0.0 on the fixed port
-app.listen(port, '0.0.0.0', () => {
-    console.log(`App is listening on 0.0.0.0:${port}`);
-    console.log(`Database initialized from: ${DB_PATH}`);
-});
 
 // Global state
 global.serverProcesses = {};
