@@ -45,7 +45,7 @@ app.use((req, res, next) => {
 });
 // Configuration
 // Forced to 3000 as the "arbitrary port" for the moderator's test
-const port = 8080; 
+const port = 9000; 
 const DATA_DIR = __dirname;
 
 // Paths for your specific setup
